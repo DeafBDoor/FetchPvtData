@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">FetchPvtData</string>
+    <string name="copy_success">File available in sdcard path</string>
+    <string name="copy_fail">Check path and supersu authorization</string>
+    <string name="copy_notification_title_success">Copy of %s succeed</string>
+    <string name="copy_notification_title_fail">Copy of %s failed</string>
+</resources>
