@@ -3,9 +3,8 @@ package com.example.richard.fetchpvtdata.utils;
 import java.io.File;
 
 /**
- * Created by richard on 04/11/17.
+ * Wrapper class to access native method for copying.
  */
-
 public class SuCmdNative extends SuCmd {
     @Override
     public boolean suCopyFile() {

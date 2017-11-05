@@ -12,7 +12,7 @@ import com.example.richard.fetchpvtdata.utils.SuCmd;
 
 /**
  * Created this AsyncTask in order to do execute the copy asynchronously with the
- * main thread, since the file could take some minutes to copy.
+ * main thread, since the file could take some seconds to copy.
  */
 class RunSuCmdBg extends AsyncTask<SuCmd, Void, Boolean> {
     private SuCmd suCmd;
@@ -24,13 +24,14 @@ class RunSuCmdBg extends AsyncTask<SuCmd, Void, Boolean> {
 
     @Override
     protected Boolean doInBackground(SuCmd... suCmds) {
-
-        //BuildConfig.DEBUG(suCmds.length == 1);
         suCmd = suCmds[0];
         return suCmd.suCopyFile();
     }
 
     @Override
+    /**
+     * Generates feedback for the user, based on success or failure.
+     */
     protected void onPostExecute(Boolean wasSuccessful) {
         String text, title;
         if (wasSuccessful) {

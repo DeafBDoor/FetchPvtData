@@ -3,7 +3,8 @@ package com.example.richard.fetchpvtdata.utils;
 import java.io.File;
 
 /**
- * Created by richard on 04/11/17.
+ * Base class for all SuCmd types.
+ * Constructor is protected, so users access concrete classes through the associated factory.
  */
 
 public abstract class SuCmd {
