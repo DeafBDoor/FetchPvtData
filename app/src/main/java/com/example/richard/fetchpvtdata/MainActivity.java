@@ -1,17 +1,10 @@
 package com.example.richard.fetchpvtdata;
 
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.content.Context;
-import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
-import com.example.richard.fetchpvtdata.utils.Constants;
 import com.example.richard.fetchpvtdata.utils.SuCmd;
 import com.example.richard.fetchpvtdata.utils.SuCmdFactory;
 
