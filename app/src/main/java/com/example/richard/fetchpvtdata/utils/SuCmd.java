@@ -1,4 +1,4 @@
-package com.example.richard.fetchpvtdata.com.example.richard.fetchpvtdata.utils;
+package com.example.richard.fetchpvtdata.utils;
 
 import java.io.File;
 
@@ -26,7 +26,7 @@ public abstract class SuCmd {
     File pvtFile, targetFile;
 
     abstract public boolean suCopyFile();
-    public SuCmd(File pvtFile, File targetFile) {
+    protected SuCmd(File pvtFile, File targetFile) {
         this.pvtFile = pvtFile;
         this.targetFile = targetFile;
     }

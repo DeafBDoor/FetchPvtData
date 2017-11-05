@@ -4,4 +4,6 @@
     <string name="copy_fail">Check path and supersu authorization</string>
     <string name="copy_notification_title_success">Copy of %s succeed</string>
     <string name="copy_notification_title_fail">Copy of %s failed</string>
+    <string name="java_button">Java Copy</string>
+    <string name="native_button">Native Copy</string>
 </resources>

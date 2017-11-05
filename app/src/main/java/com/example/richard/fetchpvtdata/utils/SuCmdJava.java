@@ -1,4 +1,4 @@
-package com.example.richard.fetchpvtdata.com.example.richard.fetchpvtdata.utils;
+package com.example.richard.fetchpvtdata.utils;
 
 import android.util.Log;
 
@@ -13,9 +13,9 @@ import java.io.OutputStream;
  */
 
 public class SuCmdJava extends SuCmd {
-    public final static int BUFSIZE = 4096;
+    private final static int BUFSIZE = 4096;
 
-    public SuCmdJava(File pvtFile, File targetFile) {
+    protected SuCmdJava(File pvtFile, File targetFile) {
         super(pvtFile, targetFile);
     }
 

@@ -1,4 +1,4 @@
-package com.example.richard.fetchpvtdata.com.example.richard.fetchpvtdata.utils;
+package com.example.richard.fetchpvtdata.utils;
 
 /**
  * Created by richard on 04/11/17.

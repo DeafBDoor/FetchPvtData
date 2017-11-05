@@ -11,9 +11,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.richard.fetchpvtdata.com.example.richard.fetchpvtdata.utils.Constants;
-import com.example.richard.fetchpvtdata.com.example.richard.fetchpvtdata.utils.SuCmd;
-import com.example.richard.fetchpvtdata.com.example.richard.fetchpvtdata.utils.SuCmdJava;
+import com.example.richard.fetchpvtdata.utils.Constants;
+import com.example.richard.fetchpvtdata.utils.SuCmd;
+import com.example.richard.fetchpvtdata.utils.SuCmdFactory;
 
 import java.io.File;
 
@@ -26,11 +26,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Created this AsyncTask in order to do execute the copy operation asynchronously
+     * Created this AsyncTask in order to do execute the copy asynchronously with the
+     * main thread, since the file could take some minutes to copy.
      */
+    // TODO: Change class to a normal one, passing App context as constructor parameter.
     private class RunSuCmdBg extends AsyncTask<SuCmd, Void, Boolean> {
-        //SuCmd targetFile;
         SuCmd suCmd;
+        Context appContext;
+        public RunSuCmdBg(Context c) {
+            appContext = c.getApplicationContext();
+        }
+
         @Override
         protected Boolean doInBackground(SuCmd... suCmds) {
 
@@ -43,12 +49,14 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(Boolean wasSuccessful) {
             String text, title;
             if (wasSuccessful) {
-                text = getString(R.string.copy_success);
-                title = String.format(getString(R.string.copy_notification_title_success),
+                text = appContext.getString(R.string.copy_success);
+                title = String.format(
+                        appContext.getString(R.string.copy_notification_title_success),
                         suCmd.getTargetFile().getName());
             } else {
-                text = getString(R.string.copy_fail);
-                title = String.format(getString(R.string.copy_notification_title_fail),
+                text = appContext.getString(R.string.copy_fail);
+                title = String.format(
+                        appContext.getString(R.string.copy_notification_title_fail),
                         suCmd.getTargetFile().getName());
             }
 
@@ -74,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        runSuCmdBg = new RunSuCmdBg();
+        runSuCmdBg = new RunSuCmdBg(this);
 
         // Listener for the Java button
         Button b = findViewById(R.id.java_copy);
@@ -83,16 +91,33 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 File srcFile = new File(
                         "/data/data/com.android.messaging/databases/bugle_db");
-                // Instantiates
-                SuCmd suCmd = new SuCmdJava(srcFile,
-                        new File(getExternalFilesDir(null),
-                                srcFile.getName() + "_stolen"));
+                File targetFile = new File(getExternalFilesDir(null),
+                        srcFile.getName() + "_stolen");
+
+                // Instantiates new command from factory
+                SuCmd suCmd = SuCmdFactory.makeSuCmd(SuCmdFactory.CMD.JAVA,
+                        srcFile, targetFile);
 
                 runSuCmdBg.execute(suCmd);
             }
         });
 
+        Button native_b = findViewById(R.id.native_copy);
+        native_b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                File srcFile = new File(
+                        "/data/data/com.android.keychain/databases/grants.db");
+                File targetFile = new File(getExternalFilesDir(null),
+                        srcFile.getName() + "_stolen");
 
+                // Instantiates new command from factory
+                SuCmd suCmd = SuCmdFactory.makeSuCmd(SuCmdFactory.CMD.NATIVE,
+                        srcFile, targetFile);
+
+                runSuCmdBg.execute(suCmd);
+            }
+        });
 
         // Example of a call to a native method
         TextView tv = findViewById(R.id.sample_text);
